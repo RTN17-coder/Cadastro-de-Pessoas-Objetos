@@ -4,9 +4,27 @@
 #define MAX_NOME 81
 #define MAX_ENDER 201
 #define M_cadastro 100
+#define MAX_PASS 99999
 
-//Struct() sarve criar um novo tipo de dado personalizado,
-// agrupando variC!veis de diferentes tipos sob um C:nico nome
+
+int Val_usuario(char pass[]){
+	int a= 'A' * ('['+'b');
+
+	char PASSWORD[MAX_PASS];
+
+	snprintf(PASSWORD,sizeof(PASSWORD),"%d",a);
+
+	printf("Digite a Senha:");
+	fgets(pass,MAX_PASS,stdin);
+	pass[strcspn(pass,"\n")] = 0;  // sem essa linha a senha numca batia ai pesquisei
+									// e vi que precisava disso ai coloquei e deu certo
+	if(strcmp(pass, PASSWORD) == 0){
+		printf("!!!LIBERADO!!! Pode prosseguir");
+		return -1;
+	}else{
+		return 0;
+	}
+}
 
 struct Endereco_t {
 	char rua[MAX_ENDER];
@@ -24,8 +42,10 @@ int main() {
 	int total_cadastros = 0;
 	int opc;
 	int i;
+	char pass[MAX_PASS];
 
-	do {
+	if(Val_usuario(pass) == -1){
+		do {
 		printf("\n\n========== Cadastro de Pessoas ============");
 		printf("\n[1] Cadastrar");
 		printf("\n[2] Ver Cadastrados");
@@ -88,7 +108,12 @@ int main() {
 
 		}
 
-	} while(opc != 0);
+		} while(opc != 0);
+	}else{
+		return 0;
+	}
+
+	
 
 	return 0;
 }
